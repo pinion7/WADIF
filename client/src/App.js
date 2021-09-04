@@ -19,6 +19,7 @@ import NotFound from './LodingPlaceHolder/404NotFound';
 import LogOutModal from './components/Nav/LogOutModal';
 import Introducion from './pages/IntroducePage';
 import axios from 'axios';
+require('dotenv').config();
 
 function App() {
   const [show, setShow] = useState(false);
