@@ -41,13 +41,15 @@ const Allboardpage = ({ history, handleModalOpen }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(async () => {
+    const api = process.env.REACT_APP_API_URL;
+    const config = {
+      withCredentials: true,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
     try {
-      const data = await axios.get('https://localhost:4000/main?sort=views', {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        withCredentials: true,
-      });
+      const data = await axios.get(`${api}/main?sort=views`, config);
       setAll(data.data.data);
       setIsLoading(false);
     } catch (err) {

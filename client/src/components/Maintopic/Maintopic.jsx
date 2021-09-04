@@ -252,7 +252,7 @@ const Maintopic = ({ bgColor, postInfo, history }) => {
     if (on) {
       setOn(false);
       const data = await axios.delete(
-        `https://localhost:4000/users/bookmarks/${postInfo.id}`,
+        `${process.env.REACT_APP_API_URL}/users/bookmarks/${postInfo.id}`,
         {
           withCredentials: true,
           headers: {
@@ -263,7 +263,7 @@ const Maintopic = ({ bgColor, postInfo, history }) => {
     } else {
       setOn(true);
       const data = await axios.post(
-        'https://localhost:4000/users/bookmarks',
+        `${process.env.REACT_APP_API_URL}/users/bookmarks`,
         {
           postId: postInfo.id,
         },
@@ -278,12 +278,14 @@ const Maintopic = ({ bgColor, postInfo, history }) => {
   };
 
   useEffect(async () => {
-    const data = await axios.get('https://localhost:4000/users/userInfo', {
+    const api = process.env.REACT_APP_API_URL;
+    const config = {
       withCredentials: true,
       headers: {
         'Content-Type': 'application/json',
       },
-    });
+    };
+    const data = await axios.get(`${api}/users/userInfo`, config);
     const likePost = data.data.data.bookmark;
     const newArr = likePost.filter((item) => item.id === postInfo.id);
     if (newArr.length > 0) {

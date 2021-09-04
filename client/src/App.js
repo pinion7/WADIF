@@ -32,9 +32,13 @@ function App() {
     const currentClass = e.target.className;
 
     if (currentClass === 'yesBx' || currentClass === 'yes') {
-      const signOutUrl = 'https://localhost:4000/users/signout';
+      const signOutUrl = `${process.env.REACT_APP_API_URL}/users/signout`;
+      const config = {
+        withCredentials: true,
+        'Content-Type': 'application/json',
+      };
       try {
-        const response = await axios.post(signOutUrl);
+        await axios.post(signOutUrl, {}, config);
         history.push('/'); //나중에 소개페이지 history push
       } catch (err) {
         console.log(err);
